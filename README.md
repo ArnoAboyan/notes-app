@@ -36,25 +36,27 @@ Notes App is a test assignment that provides a REST API for creating, managing, 
 
 ## Quick Start
 
-### Running with Docker Compose
+The application is fully containerized. For your convenience, the API image is pre-built and available on **Docker Hub**.
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd notes-app
-```
+### Option A: Run from ZIP archive (Recommended)
+1. **Unzip** the archive to any folder.
+2. **Open a terminal** in the project root.
+3. Run: `docker-compose up -d`
 
-2. Create a `.env` file in the project root (optional, for custom settings):
-```env
-MONGO_DATABASE=notes_db
-MONGO_USERNAME=root
-MONGO_PASSWORD=secret
-```
+### Option B: Run from GitHub
+1. **Clone** the repository:
 
-3. Start the application:
-```bash
-docker-compose up -d
-```
+   ```bash
+   git clone https://github.com/ArnoAboyan/notes-app.git
+   ```
+2. `cd notes-app`
+3. Run: `docker-compose up -d`
+
+### Environment Variables
+
+A pre-configured `.env` file is already included in the root directory with default credentials for MongoDB. You don't need to change anything unless you want to use custom ports or passwords.
+
+### After starting
 
 4. The application will be available at: `http://localhost:8080`
 5. Swagger UI is available at: `http://localhost:8080/swagger-ui/index.html`
@@ -65,6 +67,7 @@ docker-compose up -d
 ## API Endpoints
 
 ### Create Note
+
 ```http
 POST /api/notes
 Content-Type: application/json
@@ -79,6 +82,7 @@ Content-Type: application/json
 **Response:** `201 Created` with full note data
 
 ### Get Notes List
+
 ```http
 GET /api/notes?page=0&size=10&tags=PERSONAL,BUSINESS
 ```
@@ -91,6 +95,7 @@ GET /api/notes?page=0&size=10&tags=PERSONAL,BUSINESS
 **Response:** `200 OK` with paginated list of notes (title and creation date only)
 
 ### Get Note by ID
+
 ```http
 GET /api/notes/{id}
 ```
@@ -98,6 +103,7 @@ GET /api/notes/{id}
 **Response:** `200 OK` with full note data
 
 ### Update Note (Full)
+
 ```http
 PUT /api/notes/{id}
 Content-Type: application/json
@@ -112,6 +118,7 @@ Content-Type: application/json
 **Response:** `200 OK` with updated note data
 
 ### Partially Update Note
+
 ```http
 PATCH /api/notes/{id}
 Content-Type: application/json
@@ -124,6 +131,7 @@ Content-Type: application/json
 **Response:** `200 OK` with updated note data
 
 ### Delete Note
+
 ```http
 DELETE /api/notes/{id}
 ```
@@ -131,6 +139,7 @@ DELETE /api/notes/{id}
 **Response:** `204 No Content`
 
 ### Get Word Statistics
+
 ```http
 GET /api/notes/{id}/stats
 ```
