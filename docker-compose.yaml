@@ -1,0 +1,32 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  app:
+    image: yanabo/notes-app:latest
+    container_name: notes-app
+    depends_on:
+      - mongodb
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      SPRING_DATA_MONGODB_DATABASE: ${MONGO_DATABASE}
+      SPRING_DATA_MONGODB_USERNAME: ${MONGO_USERNAME}
+      SPRING_DATA_MONGODB_PASSWORD: ${MONGO_PASSWORD}
+      SPRING_DATA_MONGODB_HOST: mongodb
+      SPRING_DATA_MONGODB_PORT: 27017
+      LOGGING_FILE_NAME: logs/app.log
+    ports:
+      - "8080:8080"
+
+volumes:
+  mongo-data:

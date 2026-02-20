@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: Notes App
+  data:
+    mongodb:
+      host: ${SPRING_DATA_MONGODB_HOST:localhost}
+      port: ${SPRING_DATA_MONGODB_PORT:27017}
+      database: ${SPRING_DATA_MONGODB_DATABASE:notes_db}
+      username: ${SPRING_DATA_MONGODB_USERNAME:root}
+      password: ${SPRING_DATA_MONGODB_PASSWORD:secret}
+      authentication-database: admin
+    web:
+      pageable:
+        serialization-mode: via_dto
+
+
+logging:
+  file:
+    name: logs/notes-app.log
+  level:
+    root: INFO
+    com.qoqtest.notes: DEBUG
+  logback:
+    rollingpolicy:
+      file-name-pattern: "logs/archived/notes-app.%d{yyyy-MM-dd}.%i.log.gz"
+      max-file-size: 10MB
+      max-history: 7
+      total-size-cap: 1GB
+
+springdoc:
+  api-docs:
+    path: /api-docs
